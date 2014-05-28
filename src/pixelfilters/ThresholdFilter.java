@@ -11,7 +11,7 @@ public class ThresholdFilter extends PixelFilter {
 	@Override
 	protected int calculate(int pixel) {
 		int grey = (getR(pixel) + getG(pixel) + getB(pixel)) / 3;
-		if (grey > threshold) {
+		if (grey >= threshold) {
 			return rgbPixel(255, 255, 255);
 		} else {
 			return rgbPixel(0, 0, 0);

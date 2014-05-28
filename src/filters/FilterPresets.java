@@ -3,10 +3,13 @@ package filters;
 import java.util.HashMap;
 
 import pixelfilters.ColorBandFilter;
+import pixelfilters.ColorReplacementFilter;
 import pixelfilters.MonochromeFilter;
+import pixelfilters.MultiThresholdFilter;
 import pixelfilters.ThresholdFilter;
 import areafilters.FlipXFilter;
 import areafilters.FlipYFilter;
+import areafilters.PixelGraphicFilter;
 import exceptions.FilterNotAvailableException;
 
 public class FilterPresets {
@@ -21,6 +24,13 @@ public class FilterPresets {
 		availableFilters.put("colorband_blue", new ColorBandFilter(ColorBand.BLUE));
 		availableFilters.put("threshold_128", new ThresholdFilter(128));
 		availableFilters.put("threshold_192", new ThresholdFilter(192));
+		availableFilters.put("multithreshold", new MultiThresholdFilter(64, 128, 192));
+		availableFilters.put("colorreplacement_64", new ColorReplacementFilter(AbstractFilter.rgbPixel(64, 64, 64)));
+		availableFilters.put("colorreplacement_128", new ColorReplacementFilter(AbstractFilter.rgbPixel(128, 128, 128)));
+		availableFilters.put("colorreplacement_192", new ColorReplacementFilter(AbstractFilter.rgbPixel(192, 192, 192)));
+		availableFilters.put("pixel_20", new PixelGraphicFilter(20));
+		availableFilters.put("pixel_40", new PixelGraphicFilter(40));
+		availableFilters.put("pixel_60", new PixelGraphicFilter(60));
 		availableFilters.put("flip_x", new FlipXFilter());
 		availableFilters.put("flip_y", new FlipYFilter());
 	}

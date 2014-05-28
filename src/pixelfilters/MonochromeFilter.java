@@ -5,7 +5,7 @@ public class MonochromeFilter extends PixelFilter {
 
 	@Override
 	protected int calculate(int pixel) {
-		int grey =( getR(pixel)+getG(pixel)+getB(pixel))/3;
+		int grey = getBrightness(pixel);
 		return rgbPixel(grey, grey, grey);
 	}
 }

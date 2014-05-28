@@ -22,23 +22,16 @@ public abstract class PixelFilter extends AbstractFilter {
 
 		// Filter fuer jeden Pixel anwenden
 		if (img.length >= 2) {
+			// Mit Maske
 			maskPixels = getRGB(img[1]);
 			outputPixels = imgPixels.clone();
 			for (int i = 0; i < imgPixels.length; i++) {
-				// Mit Maske
-				if (alpha(maskPixels[i]) <= 0) {
-					// Schwarz/Weiß
+				// Weiße Bereche der Maske komplett ignorieren
+				if(getAlpha(maskPixels[i])>0){
+					// Neuen Pixel berechnen
 					outputPixels[i] = calculate(imgPixels[i]);
-				} else {
-					// Graustufen
-					float alpha = 1 - alpha(maskPixels[i]);
-					int _new = calculate(imgPixels[i]);
-					int _old = outputPixels[i];
-					int r, g, b;
-					r = (int) (getR(_old) + (getR(_new) - getR(_old)) * alpha);
-					g = (int) (getG(_old) + (getG(_new) - getG(_old)) * alpha);
-					b = (int) (getB(_old) + (getB(_new) - getB(_old)) * alpha);
-					outputPixels[i] = rgbPixel(r, g, b);
+					// Maske anwenden (Transparenz des Filters wird durch Helligkeit geregelt)
+					outputPixels[i] = blend(imgPixels, outputPixels[i], maskPixels, i);
 				}
 			}
 		} else {

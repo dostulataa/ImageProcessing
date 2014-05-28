@@ -12,17 +12,27 @@ public abstract class AreaFilter extends AbstractFilter {
 		int[] imgPixels = img[0].getRGB(0, 0, img[0].getWidth(),
 				img[0].getHeight(), null, 0, img[0].getWidth());
 		int[] maskPixels = null;
-		int[] outputPixels = null;
+		int[] outputPixels = new int[imgPixels.length];
 		
 		if(img.length >= 2){
-			maskPixels = img[0].getRGB(0, 0, img[0].getWidth(),
-					img[0].getHeight(), null, 0, img[0].getWidth());
-		}
-
-		// Filter fuer jeden Pixel anwenden
-		outputPixels = new int[imgPixels.length];
-		for (int i = 0; i < imgPixels.length; i++) {
-			outputPixels[i] = calculate(imgPixels, maskPixels, i, img[0].getWidth(), img[0].getHeight());
+			maskPixels = img[1].getRGB(0, 0, img[1].getWidth(),
+					img[1].getHeight(), null, 0, img[1].getWidth());
+			for (int i = 0; i < imgPixels.length; i++) {
+				if(getAlpha(maskPixels[i])>0){
+					// Pixel berechnen
+					outputPixels[i] = calculate(imgPixels, maskPixels, i, img[0].getWidth(), img[0].getHeight());
+					// Maske anwenden
+					outputPixels[i] = blend(imgPixels, outputPixels[i], maskPixels, i);
+				}else{
+					// 
+					outputPixels[i] = imgPixels[i];
+				}
+			}
+		}else{
+			// Filter fuer jeden Pixel anwenden
+			for (int i = 0; i < imgPixels.length; i++) {
+				outputPixels[i] = calculate(imgPixels, maskPixels, i, img[0].getWidth(), img[0].getHeight());
+			}
 		}
 
 		BufferedImage result = new BufferedImage(img[0].getWidth(),

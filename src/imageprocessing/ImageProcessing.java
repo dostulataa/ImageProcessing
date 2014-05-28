@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import exceptions.FilterNotAvailableException;
-import filters.AbstractFilter;
 import filters.Filter;
 import filters.FilterPresets;
 
@@ -58,7 +57,7 @@ public class ImageProcessing {
 			try {
 				mask = ImageIO.read(new File(maskFile));
 			} catch (IOException e) {
-				System.err.println("Fehler beim Laden der Datei " + inputFile);
+				System.err.println("Fehler beim Laden der Datei " + maskFile);
 				return;
 			}
 		}
