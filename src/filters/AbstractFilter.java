@@ -44,7 +44,7 @@ public abstract class AbstractFilter implements Filter {
 	}
 	
 	/**
-	 * Berechnet den int Wert für eine RGB Farbe
+	 * Berechnet den int Wert fuer eine RGB Farbe
 	 * @param r Der Rotanteil
 	 * @param g Der Gruenanteil
 	 * @param b Der Blauanteil
@@ -55,9 +55,9 @@ public abstract class AbstractFilter implements Filter {
 	}
 	
 	/**
-	 * Berechnet einen Alphawert für eine Maske
+	 * Berechnet einen Alphawert fuer eine Maske
 	 * @param mask Die Maske als int[] (per BufferedImage.getRGB())
-	 * @return Ein Alphawert zwischen 1(bei weißer maske) und 0 (bei schwarzer maske)
+	 * @return Ein Alphawert zwischen 1(bei weisser maske) und 0 (bei schwarzer maske)
 	 */
 	protected float getAlpha(int mask){
 		return getBrightness(mask) / 255f;
