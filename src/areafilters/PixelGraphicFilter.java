@@ -34,18 +34,20 @@ public class PixelGraphicFilter extends AreaFilter {
 		}
 
 		// Summe der umgebenden Farbwerte bilden
-		for (int x = startX; x < startX + size; x++) {
-			for (int y = startY; y < startY + size; y++) {
+		int count = 0;
+		for (int x = startX; x < startX + size && x < width; x++) {
+			for (int y = startY; y < startY + size && y < height; y++) {
 				r += getR(pixels[XYtoI(x, y, width)]);
 				g += getG(pixels[XYtoI(x, y, width)]);
 				b += getB(pixels[XYtoI(x, y, width)]);
+				count++;
 			}
 		}
 
 		// Durchschnittsfarbe berechnen
-		r /= size * size;
-		g /= size * size;
-		b /= size * size;
+		r /= count;
+		g /= count;
+		b /= count;
 
 		// Pixel zusammensetzen
 		int pixel = rgbPixel(r, g, b);

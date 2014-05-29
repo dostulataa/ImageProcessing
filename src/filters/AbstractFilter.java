@@ -12,7 +12,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param pixel Der Pixel
 	 * @return 0-255
 	 */
-	protected int getR(int pixel){
+	public static int getR(int pixel){
 		return (pixel >> 16) & 0xFF;
 	}
 	
@@ -21,7 +21,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param pixel Der Pixel
 	 * @return 0-255
 	 */
-	protected  int getG(int pixel){
+	public static  int getG(int pixel){
 		return (pixel >> 8) & 0xFF;
 	}
 	
@@ -30,7 +30,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param pixel Der Pixel
 	 * @return 0-255
 	 */
-	protected  int getB(int pixel){
+	public static  int getB(int pixel){
 		return pixel & 0xFF;
 	}
 	
@@ -39,7 +39,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param img Das Bild
 	 * @return Ein int[] mit img.width * img.height Elementen
 	 */
-	protected  int[] getRGB(BufferedImage img){
+	public static  int[] getRGB(BufferedImage img){
 		return img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, img.getWidth());
 	}
 	
@@ -50,7 +50,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param b Der Blauanteil
 	 * @return Der int Wert
 	 */
-	protected static  int rgbPixel(int r, int g, int b) {
+	public static  int rgbPixel(int r, int g, int b) {
 		return (0xFF << 24) | (r << 16) | (g << 8) | (b);
 	}
 	
@@ -59,7 +59,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param mask Die Maske als int[] (per BufferedImage.getRGB())
 	 * @return Ein Alphawert zwischen 1(bei weisser maske) und 0 (bei schwarzer maske)
 	 */
-	protected float getAlpha(int mask){
+	public static float getAlpha(int mask){
 		return getBrightness(mask) / 255f;
 	}
 	
@@ -68,7 +68,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param pixel Der Pixel (in RGB oder ARGB Darstellung)
 	 * @return Helligkeits- oder Grauwert des Pixels
 	 */
-	protected int getBrightness(int pixel){
+	public static int getBrightness(int pixel){
 		return (getR(pixel)+getG(pixel)+getB(pixel))/3;
 	}
 	
@@ -79,7 +79,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param width Die Breite des Bildes
 	 * @return
 	 */
-	protected int XYtoI(int x, int y, int width){
+	public static int XYtoI(int x, int y, int width){
 		return width*y + x;
 	}
 	
@@ -89,7 +89,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param width Die Breite des Bildes
 	 * @return Die X Koordinate, beginnend mit 0
 	 */
-	protected int ItoX(int i, int width){
+	public static int ItoX(int i, int width){
 		return i % width;
 	}
 	
@@ -111,7 +111,7 @@ public abstract class AbstractFilter implements Filter {
 	 * @param i Der index des Pixels
 	 * @return Pixel, eine Kombination der eingangspixel
 	 */
-	protected int blend(int[] pixelsOld, int pixelNew, int[] maskPixels, int i){
+	public static int blend(int[] pixelsOld, int pixelNew, int[] maskPixels, int i){
 		float alpha = getAlpha(maskPixels[i]);
 		int _new = pixelNew;
 		int _old = pixelsOld[i];

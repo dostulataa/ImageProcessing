@@ -3,6 +3,7 @@ package imageprocessing;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
@@ -64,35 +65,41 @@ public class ImageProcessing {
 			
 		if (test) {
 			// Alle Filter testen
-			// TODO
+			for (Entry<String,Filter> filter : FilterPresets.getAllFilters()) {
+				processImage(outputFile+"_"+filter.getKey() + ".bmp", filter.getKey(), img, mask);
+			}
 		} else {
 			// Einen Filter anwenden
-			Filter filter;
-			try {
-				filter = FilterPresets.getFilter(filterName);
-			} catch (FilterNotAvailableException e) {
-				System.err.println(e.getMessage());
-				return;
-			}
+			processImage(outputFile, filterName, img, mask);
 			
-			// Filter anwenden
-			BufferedImage result;
-			long time = System.nanoTime();
-			if(mask != null){
-				result = filter.process(img, mask);
-			}else{
-				result = filter.process(img);
-			}
-			System.out.println("Bild verarbeitet in "+(System.nanoTime()-time)/1000000+"ms");
-			
-			// Ergebnis speichern
-			try {
-				ImageIO.write(result, "bmp", new File(outputFile));
-			} catch (IOException e) {
-				System.err.println("Fehler beim Speichern der Datei " + outputFile);
-			}
+		}
+	}
 
-			
+	private static void processImage(String outputFile, String filterName,
+			BufferedImage img, BufferedImage mask) {
+		Filter filter;
+		try {
+			filter = FilterPresets.getFilter(filterName);
+		} catch (FilterNotAvailableException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
+		
+		// Filter anwenden
+		BufferedImage result;
+		long time = System.nanoTime();
+		if(mask != null){
+			result = filter.process(img, mask);
+		}else{
+			result = filter.process(img);
+		}
+		System.out.println("Bild mit '" + filterName + "' verarbeitet in "+(System.nanoTime()-time)/1000000+"ms");
+		
+		// Ergebnis speichern
+		try {
+			ImageIO.write(result, "bmp", new File(outputFile));
+		} catch (IOException e) {
+			System.err.println("Fehler beim Speichern der Datei " + outputFile);
 		}
 	}
 

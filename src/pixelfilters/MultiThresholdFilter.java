@@ -18,6 +18,6 @@ public class MultiThresholdFilter extends PixelFilter {
 				return rgbPixel(threshold[i+1], threshold[i+1], threshold[i+1]);
 			}
 		}
-		return rgbPixel(0, 0, 0);
+		return rgbPixel(threshold[0], threshold[0], threshold[0]);
 	}
 }

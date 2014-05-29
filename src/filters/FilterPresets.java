@@ -1,6 +1,8 @@
 package filters;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import pixelfilters.ColorBandFilter;
 import pixelfilters.ColorReplacementFilter;
@@ -17,7 +19,6 @@ public class FilterPresets {
 	private static HashMap<String, Filter> availableFilters = new HashMap<String, Filter>();
 	
 	public static void init(){
-		// TODO Filter initialisieren
 		availableFilters.put("monochrom", new MonochromeFilter());
 		availableFilters.put("colorband_red", new ColorBandFilter(ColorBand.RED));
 		availableFilters.put("colorband_green", new ColorBandFilter(ColorBand.GREEN));
@@ -33,6 +34,11 @@ public class FilterPresets {
 		availableFilters.put("pixel_60", new PixelGraphicFilter(60));
 		availableFilters.put("flip_x", new FlipXFilter());
 		availableFilters.put("flip_y", new FlipYFilter());
+		availableFilters.put("warhol", new WarholFilter());
+	}
+	
+	public static Set<Entry<String,Filter>> getAllFilters(){
+		return availableFilters.entrySet();
 	}
 	
 	public static Filter getFilter(String filtername) throws FilterNotAvailableException{
