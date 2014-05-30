@@ -11,11 +11,13 @@ import exceptions.FilterNotAvailableException;
 import filters.Filter;
 import filters.FilterPresets;
 
+/**
+ * Ein kleines Bldbearbeitungsprogramm mit verschiedenen Filtern
+ * @author Benedikt Ringlein, Lukas Richter
+ *
+ */
 public class ImageProcessing {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		int index = 0;
@@ -25,6 +27,12 @@ public class ImageProcessing {
 
 		// Filter initialisieren
 		FilterPresets.init();
+		
+		// Wenn keine Parameter angegeben wurden, soll der UI Modus gestartet werden
+		if(args.length <= 0){
+			new UserInterface();
+			return;
+		}
 
 		// Programmparameter auswerten
 		try {
