@@ -12,7 +12,7 @@ import filters.Filter;
 import filters.FilterPresets;
 
 /**
- * Ein kleines Bldbearbeitungsprogramm mit verschiedenen Filtern
+ * Ein kleines Bildbearbeitungsprogramm mit verschiedenen Filtern
  * @author Benedikt Ringlein, Lukas Richter
  *
  */
@@ -30,7 +30,7 @@ public class ImageProcessing {
 		
 		// Wenn keine Parameter angegeben wurden, soll der UI Modus gestartet werden
 		if(args.length <= 0){
-			new UserInterface();
+			UserInterface.showUI();
 			return;
 		}
 

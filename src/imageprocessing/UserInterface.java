@@ -1,5 +1,6 @@
 package imageprocessing;
 
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,18 +17,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.filechooser.FileFilter;
 
 import filters.Filter;
 import filters.FilterPresets;
 
 public class UserInterface extends JFrame {
-	
+
+	private static final long serialVersionUID = -8421728323100931616L;
 	private BufferedImage img;
 
 	private JPanel imagePanel = new JPanel(){
-		public void paint(java.awt.Graphics g) {if(img!=null)g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);};
+		private static final long serialVersionUID = 5769068501105575531L;
+		public void paint(java.awt.Graphics g) {super.paint(g);if(img!=null)g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);};
 	};
+	private JProgressBar progressBar = new JProgressBar(0, 100);
 	private JMenuBar  menuBar    = new JMenuBar(            );
 	private JMenu     menuFile   = new JMenu(        "Datei");
 	private JMenu     menuFilter = new JMenu(       "Filter");
@@ -35,17 +40,41 @@ public class UserInterface extends JFrame {
 	private JMenuItem menuSave   = new JMenuItem("Speichern");
 	private JMenuItem menuExit   = new JMenuItem(  "Beenden");
 	
+	public static UserInterface UI;
+	
+	public static void showUI(){
+		UI = new UserInterface();
+	}
+	
+	public static void setImg(BufferedImage img){
+		UI.img = img;
+		UI.repaint();
+	}
+	
+	public static void setProgress(int progress){
+		UI.progressBar.setValue(progress);
+		UI.imagePanel.repaint();
+		if(progress >= 100){
+			UI.progressBar.setValue(0);
+		}
+	}
+	
 	public UserInterface(){
 		super("ImageProcessing");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		setLayout(null);
 		
 		int screenwidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int screenheight = Toolkit.getDefaultToolkit().getScreenSize().height;
 		setBounds(screenwidth / 2 - 500, screenheight / 2 - 400, 1000, 800);
 		
 		add(imagePanel);
-		imagePanel.setBounds(0, 0, getWidth(), getHeight());
+		imagePanel.setBounds(0, 20, getWidth(), getHeight());
+		
+		add(progressBar);
+		progressBar.setBounds(0, 0, getWidth(), 20);
+		progressBar.setVisible(true);
 		
 		setJMenuBar(menuBar);
 		menuBar.add(menuFile);
@@ -60,8 +89,26 @@ public class UserInterface extends JFrame {
 			menuFilter.add(newitem);
 			newitem.addActionListener(new ActionListener() {
 				@Override public void actionPerformed(ActionEvent e) {
-					img = FilterPresets.getFilter(((JMenuItem)e.getSource()).getText()).process(img);
-					imagePanel.repaint();
+					Filter currentFilter = FilterPresets.getFilter(((JMenuItem)e.getSource()).getText());
+					Thread imageProcessor = new Thread(new imageRunnable(currentFilter) {
+						
+						@Override
+						public void run() {
+							UserInterface.setImg(this.filter.process(UserInterface.UI.img));
+						}
+					});
+					imageProcessor.start();
+					
+					Thread progressThread = new Thread(new imageRunnable(currentFilter){
+						@Override
+						public void run() {
+							while(filter.getProgress() < 100){
+								UserInterface.setProgress(filter.getProgress());
+							}
+							UserInterface.setProgress(filter.getProgress());
+						}
+					});
+					progressThread.start();
 				}
 			});
 		}
@@ -131,5 +178,21 @@ public class UserInterface extends JFrame {
 				System.exit(0);
 			}
 		});
+	}
+	
+	class imageRunnable implements Runnable{
+
+		protected Filter filter;
+		
+		public imageRunnable(Filter filter){
+			this. filter = filter;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

@@ -21,6 +21,8 @@ public abstract class PixelFilter extends AbstractFilter {
 		int[] maskPixels, outputPixels;
 
 		// Filter fuer jeden Pixel anwenden
+		total = imgPixels.length;
+			current = 0;
 		if (img.length >= 2) {
 			// Mit Maske
 			maskPixels = getRGB(img[1]);
@@ -33,12 +35,14 @@ public abstract class PixelFilter extends AbstractFilter {
 					// Maske anwenden (Transparenz des Filters wird durch Helligkeit geregelt)
 					outputPixels[i] = blend(imgPixels, outputPixels[i], maskPixels, i);
 				}
+				current ++;
 			}
 		} else {
 			outputPixels = new int[imgPixels.length];
 			for (int i = 0; i < imgPixels.length; i++) {
 				// Ohne Maske
 				outputPixels[i] = calculate(imgPixels[i]);
+				current ++;
 			}
 		}
 

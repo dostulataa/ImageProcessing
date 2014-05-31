@@ -3,9 +3,16 @@ package filters;
 import java.awt.image.BufferedImage;
 
 public abstract class AbstractFilter implements Filter {
+	
+	protected int current, total;
 
 	@Override
 	public abstract BufferedImage process(BufferedImage... img);
+	
+	@Override
+	public int getProgress(){
+		return total>0?current*100/total:0;
+	}
 	
 	/**
 	 * Gibt den Rotanteil eines Pixels wieder
