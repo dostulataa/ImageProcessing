@@ -1,6 +1,5 @@
 package imageprocessing;
 
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

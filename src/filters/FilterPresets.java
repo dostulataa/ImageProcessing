@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import pixelfilters.BrightnessFilter;
 import pixelfilters.ColorBandFilter;
 import pixelfilters.ColorReplacementFilter;
+import pixelfilters.InvertFilter;
 import pixelfilters.MonochromeFilter;
 import pixelfilters.MultiThresholdFilter;
 import pixelfilters.ThresholdFilter;
 import areafilters.FlipXFilter;
 import areafilters.FlipYFilter;
 import areafilters.PixelGraphicFilter;
+import areafilters.SandFilter;
 import exceptions.FilterNotAvailableException;
 
 public class FilterPresets {
@@ -35,6 +38,13 @@ public class FilterPresets {
 		availableFilters.put("flip_x", new FlipXFilter());
 		availableFilters.put("flip_y", new FlipYFilter());
 		availableFilters.put("warhol", new WarholFilter());
+		availableFilters.put("invert", new InvertFilter());
+		availableFilters.put("brightness_plus10", new BrightnessFilter(10));
+		availableFilters.put("brightness_minus10", new BrightnessFilter(-10));
+		availableFilters.put("brightness_plus50", new BrightnessFilter(50));
+		availableFilters.put("brightness_minus50", new BrightnessFilter(-50));
+		availableFilters.put("sand_5", new SandFilter(5));
+		availableFilters.put("sand_20", new SandFilter(20));
 	}
 	
 	public static Set<Entry<String,Filter>> getAllFilters(){
