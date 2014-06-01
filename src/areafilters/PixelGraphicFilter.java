@@ -30,7 +30,7 @@ public class PixelGraphicFilter extends AreaFilter {
 
 		// Farbwert zurueckgeben, falls er schon berechnet wurde
 		if (posX != startX && posY != startY) {
-			return calculatedPixels[startX / size][startY / size];
+			//return calculatedPixels[startX / size][startY / size];
 		}
 
 		// Summe der umgebenden Farbwerte bilden

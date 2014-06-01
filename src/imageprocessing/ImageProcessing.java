@@ -85,6 +85,8 @@ public class ImageProcessing {
 
 	private static void processImage(String outputFile, String filterName,
 			BufferedImage img, BufferedImage mask) {
+		
+		// Filter laden
 		Filter filter;
 		try {
 			filter = FilterPresets.getFilter(filterName);

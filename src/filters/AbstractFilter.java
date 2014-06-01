@@ -128,5 +128,14 @@ public abstract class AbstractFilter implements Filter {
 		b = (int) (getB(_old) + (getB(_new) - getB(_old)) * alpha);
 		return rgbPixel(r, g, b);
 	}
+	
+	/**
+	 * Beschraenkt einen Farbwert auf den Bereich zwischen 0 und 255
+	 * @param color Die Farbe
+	 * @return Ein Farbwert zwischen 0 und 255
+	 */
+	public static int clamp(int color){
+		return Math.max(Math.min(color, 255),0);
+	}
 
 }

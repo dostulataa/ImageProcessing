@@ -11,8 +11,8 @@ public class SandFilter extends AreaFilter {
 	@Override
 	protected int calculate(int[] pixels, int[] maskPixels, int index,
 			int width, int height) {
-		int x = (ItoX(index, width) - diffusion + (int) (Math.random() * 2 * diffusion) + width) % width;
-		int y = (ItoY(index, width) - diffusion + (int) (Math.random() * 2 * diffusion) + height) % height;
+		int x = Math.max(Math.min((ItoX(index, width) - diffusion + (int) (Math.random() * 2 * diffusion)),width-1),0);
+		int y = Math.max(Math.min((ItoY(index, width) - diffusion + (int) (Math.random() * 2 * diffusion)),height-1),0);
 		return pixels[XYtoI(x, y, width)];
 	}
 }

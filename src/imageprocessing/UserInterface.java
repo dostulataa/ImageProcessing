@@ -19,6 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.filechooser.FileFilter;
 
+import areafilters.AreaFilter;
+
+import pixelfilters.PixelFilter;
+
 import filters.Filter;
 import filters.FilterPresets;
 
@@ -31,13 +35,15 @@ public class UserInterface extends JFrame {
 		private static final long serialVersionUID = 5769068501105575531L;
 		public void paint(java.awt.Graphics g) {super.paint(g);if(img!=null)g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);};
 	};
-	private JProgressBar progressBar = new JProgressBar(0, 100);
-	private JMenuBar  menuBar    = new JMenuBar(            );
-	private JMenu     menuFile   = new JMenu(        "Datei");
-	private JMenu     menuFilter = new JMenu(       "Filter");
-	private JMenuItem menuOpen   = new JMenuItem(  "Oeffnen");
-	private JMenuItem menuSave   = new JMenuItem("Speichern");
-	private JMenuItem menuExit   = new JMenuItem(  "Beenden");
+	private JProgressBar progressBar     = new JProgressBar(   0, 100);
+	private JMenuBar     menuBar         = new JMenuBar(             );
+	private JMenu        menuFile        = new JMenu(         "Datei");
+	private JMenu        menuPixelFilter = new JMenu(   "PixelFilter");
+	private JMenu        menuAreaFilter  = new JMenu(    "AreaFilter");
+	private JMenu        menuFilter      = new JMenu("Weitere Filter");
+	private JMenuItem    menuOpen        = new JMenuItem(   "Oeffnen");
+	private JMenuItem    menuSave        = new JMenuItem( "Speichern");
+	private JMenuItem    menuExit        = new JMenuItem(   "Beenden");
 	
 	public static UserInterface UI;
 	
@@ -81,11 +87,19 @@ public class UserInterface extends JFrame {
 		menuFile.add(menuSave);
 		menuFile.addSeparator();
 		menuFile.add(menuExit);
+		menuBar.add(menuPixelFilter);
+		menuBar.add(menuAreaFilter);
 		menuBar.add(menuFilter);
 		
 		for (Entry<String,Filter> filter : FilterPresets.getAllFilters()) {
 			JMenuItem newitem = new JMenuItem(filter.getKey());
-			menuFilter.add(newitem);
+			if(filter.getValue() instanceof PixelFilter){
+				menuPixelFilter.add(newitem);
+			}else if(filter.getValue() instanceof AreaFilter){
+				menuAreaFilter.add(newitem);
+			}else{
+				menuFilter.add(newitem);
+			}
 			newitem.addActionListener(new ActionListener() {
 				@Override public void actionPerformed(ActionEvent e) {
 					Filter currentFilter = FilterPresets.getFilter(((JMenuItem)e.getSource()).getText());
@@ -96,6 +110,7 @@ public class UserInterface extends JFrame {
 							UserInterface.setImg(this.filter.process(UserInterface.UI.img));
 						}
 					});
+					imageProcessor.setName("imageProcessor");
 					imageProcessor.start();
 					
 					Thread progressThread = new Thread(new imageRunnable(currentFilter){
@@ -107,6 +122,7 @@ public class UserInterface extends JFrame {
 							UserInterface.setProgress(filter.getProgress());
 						}
 					});
+					progressThread.setName("progressThread");
 					progressThread.start();
 				}
 			});

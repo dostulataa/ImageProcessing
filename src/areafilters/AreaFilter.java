@@ -15,7 +15,7 @@ public abstract class AreaFilter extends AbstractFilter {
 		int[] outputPixels = new int[imgPixels.length];
 		
 		total = imgPixels.length;
-			current = 0;
+		current = 0;
 		if(img.length >= 2){
 			maskPixels = img[1].getRGB(0, 0, img[1].getWidth(),
 					img[1].getHeight(), null, 0, img[1].getWidth());
@@ -43,6 +43,7 @@ public abstract class AreaFilter extends AbstractFilter {
 				img[0].getHeight(), BufferedImage.TYPE_INT_RGB);
 		result.setRGB(0, 0, result.getWidth(), result.getHeight(),
 				outputPixels, 0, result.getWidth());
+		current = 0;
 		return result;
 	}
 	

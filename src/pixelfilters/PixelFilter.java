@@ -50,6 +50,7 @@ public abstract class PixelFilter extends AbstractFilter {
 				img[0].getHeight(), BufferedImage.TYPE_INT_RGB);
 		result.setRGB(0, 0, result.getWidth(), result.getHeight(),
 				outputPixels, 0, result.getWidth());
+		current = 0;
 		return result;
 	}
 

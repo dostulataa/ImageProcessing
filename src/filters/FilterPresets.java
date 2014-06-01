@@ -7,6 +7,7 @@ import java.util.Set;
 import pixelfilters.BrightnessFilter;
 import pixelfilters.ColorBandFilter;
 import pixelfilters.ColorReplacementFilter;
+import pixelfilters.ContrastFilter;
 import pixelfilters.InvertFilter;
 import pixelfilters.MonochromeFilter;
 import pixelfilters.MultiThresholdFilter;
@@ -43,6 +44,10 @@ public class FilterPresets {
 		availableFilters.put("brightness_minus10", new BrightnessFilter(-10));
 		availableFilters.put("brightness_plus50", new BrightnessFilter(50));
 		availableFilters.put("brightness_minus50", new BrightnessFilter(-50));
+		availableFilters.put("contrast_plus10%", new ContrastFilter(0.1f));
+		availableFilters.put("contrast_minus10%", new ContrastFilter(-0.1f));
+		availableFilters.put("contrast_plus50%", new ContrastFilter(0.5f));
+		availableFilters.put("contrast_minus50%", new ContrastFilter(-0.5f));
 		availableFilters.put("sand_5", new SandFilter(5));
 		availableFilters.put("sand_20", new SandFilter(20));
 	}
