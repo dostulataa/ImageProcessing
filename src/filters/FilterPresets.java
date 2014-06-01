@@ -50,6 +50,7 @@ public class FilterPresets {
 		availableFilters.put("contrast_minus50%", new ContrastFilter(-0.5f));
 		availableFilters.put("sand_5", new SandFilter(5));
 		availableFilters.put("sand_20", new SandFilter(20));
+		availableFilters.put("histogramm", new HistogramAnalyser());
 	}
 	
 	public static Set<Entry<String,Filter>> getAllFilters(){
