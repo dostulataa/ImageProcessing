@@ -9,8 +9,7 @@ public class HistogramAnalyser extends AbstractFilter {
 	}
 
 	public BufferedImage process(BufferedImage... img) {
-		int[] imgPixels = img[0].getRGB(0, 0, img[0].getWidth(),
-				img[0].getHeight(), null, 0, img[0].getWidth());
+		int[] imgPixels = getRGB(img[0]);
 		String[] verteilung = new String[256];
 		double[] anzahl = new double[256];
 
