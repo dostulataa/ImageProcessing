@@ -2,8 +2,14 @@ package filters;
 
 import java.awt.image.BufferedImage;
 
-public class HistogramAnalyser extends AbstractFilter {
+public class HistogramAnalyzer extends AbstractFilter {
 
+	private ColorBand colorband;
+	
+	public HistogramAnalyzer(ColorBand colorband){
+		this.colorband = colorband;
+	}
+	
 	public BufferedImage process(BufferedImage... img) {
 		
 		int[] imgPixels = getRGB(img[0]);
@@ -16,10 +22,10 @@ public class HistogramAnalyser extends AbstractFilter {
 		numberPixels = getHistogramm(imgPixels, maskPixels, count);
 		
 		// Normalisierungsfaktor bestimmen
-		normalFactor = getNormalFactor(imgPixels.length, count);
+		normalFactor = getNormalFactor(numberPixels, count);
 		
 		// Histogramm ausgeben
-		printHistogramm(imgPixels.length, count , normalFactor);
+		printHistogramm(numberPixels, count , normalFactor);
 		
 		// Eingabebild wieder zurueckgeben
 		return img[0];
@@ -38,7 +44,26 @@ public class HistogramAnalyser extends AbstractFilter {
 		// Helligkeit bestimmen und zaehlen
 		for (int i = 0; i < imgPixels.length; i++) {
 			if(maskPixels == null || getAlpha(maskPixels[i]) > 0){
-				int grey = getBrightness(imgPixels[i]);
+				int grey;
+				if(colorband != null){
+					switch (colorband) {
+					case RED:
+						grey = getR(imgPixels[i]);
+						break;
+					case GREEN:
+						grey = getG(imgPixels[i]);
+						break;
+					case BLUE:
+						grey = getB(imgPixels[i]);
+						break;
+						
+					default:
+						grey = 0;
+						break;
+					}
+				}else{
+					grey = getBrightness(imgPixels[i]);
+				}
 				count[grey]++;
 				numberPixels++;
 			}
