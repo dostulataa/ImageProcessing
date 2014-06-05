@@ -2,6 +2,12 @@ package filters;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * 
+ * Abstrakter Filter, der in Filtern benoetigte Methoden bereitstellt
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public abstract class AbstractFilter implements Filter {
 	
 	protected int current, total;

@@ -1,5 +1,11 @@
 package pixelfilters;
 
+/**
+ * 
+ * Ein Filter, der der Helligkeit nach schwarz oder weiß einfaerbt
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class ThresholdFilter extends PixelFilter {
 
 	private int threshold;

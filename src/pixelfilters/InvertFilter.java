@@ -1,5 +1,10 @@
 package pixelfilters;
-
+/**
+ * 
+ * Ein Filter, der das Bildnegativ berechnet
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class InvertFilter extends PixelFilter {
 
 	@Override

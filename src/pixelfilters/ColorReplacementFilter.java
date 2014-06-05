@@ -2,6 +2,13 @@ package pixelfilters;
 
 import java.awt.Color;
 
+/**
+ * 
+ * Ein Filter, der eine Farbe des BIldes durch eine andere ersetzt.
+ * Wenn keine Ersetzungsfarbe angegeben ist, wird eine zufaellige gewaehlt.
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class ColorReplacementFilter extends PixelFilter {
 	
 	private int replace, replacement;

@@ -2,6 +2,12 @@ package pixelfilters;
 
 import filters.ColorBand;
 
+/**
+ * 
+ * Ein Filter, der das angegebene Farbband aus dem Bild extrahiert
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class ColorBandFilter extends PixelFilter {
 	
 	private ColorBand colorBand;

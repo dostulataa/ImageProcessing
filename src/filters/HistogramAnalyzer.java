@@ -2,6 +2,12 @@ package filters;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * 
+ * Gibt ein Histogramm der Helligkeitsverteilung zurueck
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class HistogramAnalyzer extends AbstractFilter {
 
 	private ColorBand colorband;
@@ -17,6 +23,8 @@ public class HistogramAnalyzer extends AbstractFilter {
 		int numberPixels = 0;
 		double[] count = new double[256];
 		double normalFactor;
+		total = imgPixels.length;
+		current = 0;
 
 		// Anzahl der Grauwerte berechnen und in count speichern
 		numberPixels = getHistogramm(imgPixels, maskPixels, count);
@@ -28,6 +36,7 @@ public class HistogramAnalyzer extends AbstractFilter {
 		printHistogramm(numberPixels, count , normalFactor);
 		
 		// Eingabebild wieder zurueckgeben
+		current = 0;
 		return img[0];
 	}
 	
@@ -43,6 +52,7 @@ public class HistogramAnalyzer extends AbstractFilter {
 		
 		// Helligkeit bestimmen und zaehlen
 		for (int i = 0; i < imgPixels.length; i++) {
+			current = i;
 			if(maskPixels == null || getAlpha(maskPixels[i]) > 0){
 				int grey;
 				if(colorband != null){
@@ -103,17 +113,17 @@ public class HistogramAnalyzer extends AbstractFilter {
 		for (int i = 0; i < count.length; i++) {
 			StringBuilder histogramm;
 			
-			// Wert, Anzahl zu String hinzufügen
-			histogramm = new StringBuilder(i + ": " + (int) count[i] + " Pixel (");
+			// Wert, Anzahl zu String hinzufuegen
+			histogramm = new StringBuilder(String.format("%10d",i) + ": " + String.format("%10d",(int) count[i]) + " Pixel (");
 			
 			// Umrechnen in Prozent
 			count[i] = count[i] / numberPixels * 100;
 			count[i] = Math.round(count[i] * 1000) / 1000.0;
 			
-			// Prozent zu String hinzufügen
-			histogramm.append(count[i] + "%) ");
+			// Prozent zu String hinzufuegen
+			histogramm.append(String.format("%10.2f",+count[i]) + "%) ");
 			
-			// Sternchen nach Prozent werden hinzugefügt
+			// Sternchen nach Prozent werden hinzugefuegt
 			for (int j = 1; j < count[i]*normalFactor; j++) {
 				histogramm.append('*');
 			}

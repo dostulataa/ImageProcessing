@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import filters.AbstractFilter;
 
+/**
+ * 
+ * Filter, die nur einzelne Pixel veraendern, ohne raeumlichen Kontext
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public abstract class PixelFilter extends AbstractFilter {
 
 	/**
@@ -28,7 +34,7 @@ public abstract class PixelFilter extends AbstractFilter {
 			maskPixels = getRGB(img[1]);
 			outputPixels = imgPixels.clone();
 			for (int i = 0; i < imgPixels.length; i++) {
-				// Weiße Bereche der Maske komplett ignorieren
+				// Weiï¿½e Bereche der Maske komplett ignorieren
 				if(getAlpha(maskPixels[i])>0){
 					// Neuen Pixel berechnen
 					outputPixels[i] = calculate(imgPixels[i]);

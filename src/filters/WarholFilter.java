@@ -3,6 +3,12 @@ package filters;
 import pixelfilters.ColorReplacementFilter;
 import pixelfilters.MultiThresholdFilter;
 
+/**
+ * 
+ * Wendet zuerst Multithreshhold Filter an und ersetzt danach zufaellig Farben
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class WarholFilter extends ChainFilter {
 
 	public WarholFilter(){

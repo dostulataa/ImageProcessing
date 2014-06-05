@@ -1,5 +1,11 @@
 package pixelfilters;
 
+/**
+ * 
+ * Ein Filter, der die Helligkeit des Bildes veraendert
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class BrightnessFilter extends PixelFilter {
 
 	private int brightness = 0;

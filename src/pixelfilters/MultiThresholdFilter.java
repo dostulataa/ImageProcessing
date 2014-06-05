@@ -1,5 +1,10 @@
 package pixelfilters;
-
+/**
+ * 
+ * Ein Filter, der das Bild der Helligkeit nach verschiedenen Schwellwerten zuordnet
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class MultiThresholdFilter extends PixelFilter {
 	
 	private int[] threshold;

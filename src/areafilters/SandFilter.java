@@ -1,5 +1,11 @@
 package areafilters;
 
+/**
+ * 
+ * Ein Filter, der Pixel zufaellig bewegt
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class SandFilter extends AreaFilter {
 
 	private int diffusion = 0;

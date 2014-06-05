@@ -1,6 +1,11 @@
 package pixelfilters;
 
-
+/**
+ * 
+ * Ein Filter, der das Bild in Grautoene umrechnet
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class MonochromeFilter extends PixelFilter {
 
 	@Override

@@ -1,5 +1,11 @@
 package pixelfilters;
 
+/**
+ * 
+ * Ein Filter, der dem Kontrast und die Farbsaettigung des Bildes veraendern kann
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class ContrastFilter extends PixelFilter {
 
 	private float contrast = 0;

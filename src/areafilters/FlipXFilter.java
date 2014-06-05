@@ -1,5 +1,10 @@
 package areafilters;
-
+/**
+ * 
+ * Ein Filter, der das Bild horizontal spiegelt
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class FlipXFilter extends AreaFilter {
 
 	@Override

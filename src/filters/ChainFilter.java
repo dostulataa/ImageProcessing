@@ -3,6 +3,12 @@ package filters;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * 
+ * Ein Filter, der mehrere Filter hintereinander ausfuehren kann
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class ChainFilter implements Filter {
 	
 	private int current, total;

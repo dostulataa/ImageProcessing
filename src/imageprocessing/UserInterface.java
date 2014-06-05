@@ -26,10 +26,17 @@ import pixelfilters.PixelFilter;
 import filters.Filter;
 import filters.FilterPresets;
 
+/**
+ * 
+ * Stellt eine Benutzeroberflaeche fuer eine Verwendung der Filter bereit
+ * Fuer eine einfache und bequeme Verwendung
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class UserInterface extends JFrame {
 
 	private static final long serialVersionUID = -8421728323100931616L;
-	private BufferedImage img;
+	private BufferedImage img, mask;
 
 	private JPanel imagePanel = new JPanel(){
 		private static final long serialVersionUID = 5769068501105575531L;
@@ -42,6 +49,7 @@ public class UserInterface extends JFrame {
 	private JMenu        menuAreaFilter  = new JMenu(    "AreaFilter");
 	private JMenu        menuFilter      = new JMenu("Weitere Filter");
 	private JMenuItem    menuOpen        = new JMenuItem(   "Oeffnen");
+	private JMenuItem    menuOpenMask    = new JMenuItem("Maske oeffnen");
 	private JMenuItem    menuSave        = new JMenuItem( "Speichern");
 	private JMenuItem    menuExit        = new JMenuItem(   "Beenden");
 	
@@ -84,6 +92,7 @@ public class UserInterface extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(menuFile);
 		menuFile.add(menuOpen);
+		menuFile.add(menuOpenMask);
 		menuFile.add(menuSave);
 		menuFile.addSeparator();
 		menuFile.add(menuExit);
@@ -107,7 +116,11 @@ public class UserInterface extends JFrame {
 						
 						@Override
 						public void run() {
-							UserInterface.setImg(this.filter.process(UserInterface.UI.img));
+							if(UserInterface.UI.mask !=null){
+								UserInterface.setImg(this.filter.process(UserInterface.UI.img, UserInterface.UI.mask));
+							}else{
+								UserInterface.setImg(this.filter.process(UserInterface.UI.img));								
+							}
 						}
 					});
 					imageProcessor.setName("imageProcessor");
@@ -154,6 +167,30 @@ public class UserInterface extends JFrame {
 				try {
 					img = ImageIO.read(filechooser.getSelectedFile());
 					imagePanel.repaint();
+				} catch (IOException e1) {
+					System.err.println("Fehler beim Laden der Datei " + filechooser.getSelectedFile());
+				}
+			}
+		});
+		
+		menuOpenMask.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				JFileChooser filechooser = new JFileChooser();
+				filechooser.setApproveButtonText("Maske oeffnen");
+				filechooser.setDialogTitle("Maske oeffnen");
+				filechooser.setFileFilter(new FileFilter() {
+					@Override public String getDescription() {
+						return "Bilddateien";
+					}
+					@Override public boolean accept(File f) {
+						return f.getName().endsWith(".bmp") || f.isDirectory();
+					}
+				});
+				if(filechooser.showOpenDialog(null)!=JFileChooser.APPROVE_OPTION){
+					return;
+				}
+				try {
+					mask = ImageIO.read(filechooser.getSelectedFile());
 				} catch (IOException e1) {
 					System.err.println("Fehler beim Laden der Datei " + filechooser.getSelectedFile());
 				}

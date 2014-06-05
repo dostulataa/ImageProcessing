@@ -1,5 +1,11 @@
 package areafilters;
 
+/**
+ * 
+ * Ein Filter, der das Bild vertikal spiegelt
+ * @author Lukas Richter, Benedikt Ringlein
+ *
+ */
 public class FlipYFilter extends AreaFilter {
 
 	@Override
